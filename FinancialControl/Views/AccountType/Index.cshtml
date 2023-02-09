@@ -38,7 +38,7 @@
 
 @section Scripts {
     <script>
-        const urlOrder = '@Url.Action("Order")';
+        const urlOrder = '@Url.Action("order")';
         $(function () {
             $("#reordenable").sortable({
                 stop: async function(e, ui){
@@ -46,29 +46,29 @@
                 }
             });
 
-            //async function UpdateOrders(){
-            //    const ids = getElementsIds();
-            //    await sendIdsToBackEnd(ids);
-            //}
+            async function UpdateOrders(){
+                const ids = getElementsIds();
+                await sendIdsToBackEnd(ids);
+            }
 
-            //function getElementsIds(){
-            //    const ids = $(".ids").map(function(){
-            //        return $(this).val();
-            //    }).get();
-            //    return ids;
-            //}
+            function getElementsIds(){
+                const ids = $(".ids").map(function(){
+                    return $(this).val();
+                }).get();
+                return ids;
+            }
 
-            //function sendIdsToBackEnd(ids){
-            //    var data = JSON.stringify(ids);
+            async function sendIdsToBackEnd(ids){
+                var data = JSON.stringify(ids);
 
-            //    await fetch(urlOrder,{
-            //        method:'POST',
-            //        body: data,
-            //        headers: {
-            //            'Content-Type': 'application/json'
-            //        }
-            //    });
-            //}
+                await fetch(urlOrder,{
+                    method:'POST',
+                    body: data,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+            }
         })
     </script>
 }

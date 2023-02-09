@@ -25,9 +25,10 @@ namespace FinancialControl.Services
         {
             using var connection = new SqlConnection(connectionString);
             var id = await connection.QuerySingleAsync<int>
-                                                    (@"INSERT INTO AccountType(Name, UserId, Orden)
-                                                    values (@Name, @UserId,0);
-                                                    SELECT SCOPE_IDENTITY();", accountType);
+                                                    ("Insert_AccountType",
+                                                    new { UserId= accountType.UserId, 
+                                                        Name = accountType.Name },
+                                                    commandType: System.Data.CommandType.StoredProcedure);
             accountType.Id = id;
         }
 
