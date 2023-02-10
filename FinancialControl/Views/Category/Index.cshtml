@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Category>
+@{
+    ViewData["Tittle"] = "Categories";
+}
+
+<h1>Categories</h1>
+<h5>
+    The categories lets you indicate in what you spend your money,
+    also, from where are beggining our incomes.
+</h5>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Create New</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Actions</th>
+            <th>Name</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@category.Id">
+                        <i class="bi-pencil-fill"></i>
+                    </a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@category.Id">
+                        <i class="bi-trash-fill"></i>
+                    </a>
+                </td>
+                <td>
+                    @category.Name
+                </td>
+                <td>
+                    @category.OperationTypeId.ToString()
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
