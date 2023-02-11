@@ -9,6 +9,7 @@ namespace FinancialControl.Services
         Task Create(Category category);
         Task Delete(int Id);
         Task<IEnumerable<Category>> Get(int UserId);
+        Task<IEnumerable<Category>> Get(int UserId, OperationType operationTypeId);
         Task<Category> GetById(int Id, int UserId);
         Task Update(Category categrory);
     }
@@ -31,7 +32,16 @@ namespace FinancialControl.Services
         public async Task<IEnumerable<Category>> Get(int UserId)
         {
             using var connection = new SqlConnection(connectionString);
-            return await connection.QueryAsync<Category>(@"SELECT * FROM Categories WHERE UserId = @UserId;", new {UserId});
+            return await connection.QueryAsync<Category>(@"SELECT * FROM Categories WHERE UserId = @UserId;", new { UserId });
+        }
+
+        public async Task<IEnumerable<Category>> Get(int UserId, OperationType operationTypeId)
+        {
+            using var connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<Category>(@"
+                                                        SELECT * FROM Categories 
+                                                        WHERE UserId = @UserId
+                                                        AND OperationTypeId = @OperationTypeId;", new { UserId, operationTypeId });
         }
 
         public async Task<Category> GetById(int Id, int UserId)

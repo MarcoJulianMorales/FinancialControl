@@ -7,6 +7,7 @@ namespace FinancialControl.Services
     {
         public AutoMapperProfiles() {
             CreateMap<Account, AccountCreate>();
+            CreateMap<TransactionUpdateDTO, Transaction>().ReverseMap();
         }
     }
 }
